@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.1"
+  },
+"scripts": {
+  "start": "ts-node src/server.ts"
+},
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.96",
+    "ts-node": "^10.9.2"
+  }
+}
