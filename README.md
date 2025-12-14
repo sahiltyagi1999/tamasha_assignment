@@ -1,42 +1,33 @@
-📝 Backend Assignment – Product & Order Management API
-1. Project Overview
+# Backend Assignment – Product & Order Management API
+
+## 1. Project Overview
 
 This project is a production-style backend system built using Node.js, TypeScript, Express, and MongoDB.
 It provides APIs to manage:
 
-Products
-
-Orders
-
-Dynamic pricing
-
-Inventory updates
-
-Order lifecycle
-
-Pagination & sorting
-
-User-based order fetching
+- Products
+- Orders
+- Dynamic pricing
+- Inventory updates
+- Order lifecycle
+- Pagination & sorting
+- User-based order fetching
 
 The system uses a layered architecture (routes → controllers → services → repositories → models) for clean maintainability and scalability.
 
-2. Tech Stack Used
+## 2. Tech Stack Used
 
-Node.js
+- Node.js
+- TypeScript
+- Express.js
+- MongoDB
+- Mongoose
+- ts-node / ts-node-dev (for direct TS execution)
+- dotenv (environment variables)
 
-TypeScript
+## 3. Folder Structure Explanation
 
-Express.js
-
-MongoDB
-
-Mongoose
-
-ts-node / ts-node-dev (for direct TS execution)
-
-dotenv (environment variables)
-
-3. Folder Structure Explanation
+```
 backend/
 │ package.json
 │ tsconfig.json
@@ -56,105 +47,139 @@ backend/
     ├── utils/               # Helper utilities
     ├── middleware/
     │     └── errorHandler.ts
+```
 
-Why this structure?
+### Why this structure?
 
-✔ Clear separation of concerns
-✔ Scalable for real production apps
-✔ Easy to maintain and onboard new developers
+- ✔ Clear separation of concerns
+- ✔ Scalable for real production apps
+- ✔ Easy to maintain and onboard new developers
 
-4. Environment Setup Instructions
+## 4. Environment Setup Instructions
 
-Create a .env file in the project root:
+Create a `.env` file in the project root:
 
+```
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/assignment2
-
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 
-5. Steps to Run the Project on Localhost
-Development Mode (recommended)
+## 5. Steps to Run the Project on Localhost
+
+### Development Mode (recommended)
+
+```bash
 npm start
-
+```
 
 This runs:
 
+```bash
 ts-node src/server.ts
-
+```
 
 No build required.
 
-If using ts-node-dev (auto reload):
+### If using ts-node-dev (auto reload):
+
+```bash
 npm install -D ts-node-dev
 npm run dev
+```
 
-6. Sample Variables
+## 6. Sample Variables
 
-.env file:
+### .env file:
 
+```
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/assignment2
-
+```
 
 You may adjust DB name as needed.
 
-7. Database Schema / Models
-Product Model
-name: string
-category: string
-basePrice: number
-stock: number
-sku: string (unique)
-isDeleted: boolean (soft delete)
-timestamps: true
+## 7. Database Schema / Models
 
-Order Model
-userId: string
-items: [
-  {
-    product: ObjectId (ref: Product),
-    quantity: number,
-    appliedPrice: number
-  }
-]
-totalAmount: number
-status: PLACED | PACKED | SHIPPED | DELIVERED | CANCELLED
-timestamps: true
+### Product Model
 
-8. All API Endpoints
-Product APIs
-Method	Endpoint	Description
-POST	/api/products	Create a new product
-GET	/api/products	List products with pagination & sorting
-PUT	/api/products/:id	Update a product
-DELETE	/api/products/:id	Soft delete a product
-Order APIs
-Method	Endpoint	Description
-POST	/api/orders	Create an order (with dynamic pricing + inventory updates)
-GET	/api/orders/:id	Get order details
-PATCH	/api/orders/:id/status	Update order status
-GET	/api/orders?userId=123	Get orders by user with pagination & sorting
-9. Postman Collection OR cURL Commands
-Create Product
+- `name`: string
+- `category`: string
+- `basePrice`: number
+- `stock`: number
+- `sku`: string (unique)
+- `isDeleted`: boolean (soft delete)
+- `timestamps`: true
+
+### Order Model
+
+- `userId`: string
+- `items`: array of objects
+  - `product`: ObjectId (ref: Product)
+  - `quantity`: number
+  - `appliedPrice`: number
+- `totalAmount`: number
+- `status`: PLACED | PACKED | SHIPPED | DELIVERED | CANCELLED
+- `timestamps`: true
+
+## 8. All API Endpoints
+
+### Product APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/products` | Create a new product |
+| GET | `/api/products` | List products with pagination & sorting |
+| PUT | `/api/products/:id` | Update a product |
+| DELETE | `/api/products/:id` | Soft delete a product |
+
+### Order APIs
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/orders` | Create an order (with dynamic pricing + inventory updates) |
+| GET | `/api/orders/:id` | Get order details |
+| PATCH | `/api/orders/:id/status` | Update order status |
+| GET | `/api/orders?userId=123` | Get orders by user with pagination & sorting |
+
+## 9. Postman Collection OR cURL Commands
+
+### Create Product
+
+```bash
 curl -X POST http://localhost:5000/api/products \
 -H "Content-Type: application/json" \
 -d '{"name":"Laptop","category":"electronics","basePrice":50000,"stock":10,"sku":"LP-123"}'
+```
 
-List Products (with pagination & sorting)
+### List Products (with pagination & sorting)
+
+```bash
 curl -X GET "http://localhost:5000/api/products?page=1&limit=10&sortBy=name&order=asc"
+```
 
-Update Product
+### Update Product
+
+```bash
 curl -X PUT http://localhost:5000/api/products/PRODUCT_ID \
 -H "Content-Type: application/json" \
 -d '{"stock": 25}'
+```
 
-Delete Product
+### Delete Product
+
+```bash
 curl -X DELETE http://localhost:5000/api/products/PRODUCT_ID
+```
 
-Create Order
+### Create Order
+
+```bash
 curl -X POST http://localhost:5000/api/orders \
 -H "Content-Type: application/json" \
 -d '{
@@ -164,39 +189,42 @@ curl -X POST http://localhost:5000/api/orders \
     { "productId": "PRODUCT_ID_2", "quantity": 12 }
   ]
 }'
+```
 
-Get Order by ID
+### Get Order by ID
+
+```bash
 curl -X GET http://localhost:5000/api/orders/ORDER_ID
+```
 
-Update Order Status
+### Update Order Status
+
+```bash
 curl -X PATCH http://localhost:5000/api/orders/ORDER_ID/status \
 -H "Content-Type: application/json" \
 -d '{"status":"SHIPPED"}'
+```
 
-Get Orders by User (with pagination)
+### Get Orders by User (with pagination)
+
+```bash
 curl -X GET "http://localhost:5000/api/orders?userId=123&page=1&limit=5&sortBy=createdAt&order=desc"
+```
 
-10. Assumptions & Limitations
-✔ Assumptions
+## 10. Assumptions & Limitations
 
-Order creation always includes a valid userId
+### Assumptions
 
-All product SKUs are unique
+- ✔ Order creation always includes a valid userId
+- ✔ All product SKUs are unique
+- ✔ Soft delete is used for products (isDeleted = true)
+- ✔ All stock updates occur within MongoDB transactions
+- ✔ Default sorting is createdAt desc
 
-Soft delete is used for products (isDeleted = true)
+### Limitations
 
-All stock updates occur within MongoDB transactions
-
-Default sorting is createdAt desc
-
-❗ Limitations
-
-No authentication system implemented (out of scope)
-
-No role-based access control
-
-No rate limiting / caching layer
-
-Dynamic pricing rules are simple and hardcoded as per assignment
-
-No Swagger documentation provided (can be added if needed)
+- ❗ No authentication system implemented (out of scope)
+- ❗ No role-based access control
+- ❗ No rate limiting / caching layer
+- ❗ Dynamic pricing rules are simple and hardcoded as per assignment
+- ❗ No Swagger documentation provided (can be added if needed)
