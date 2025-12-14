@@ -10,11 +10,23 @@ export const OrderController = {
       next(err);
     }
   },
-  async getOrdersByUser(req: Request, res: Response, next: NextFunction) {
+ async getOrdersByUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const userId = req.query.userId as string;
-    const orders = await OrderService.getOrdersByUser(userId, req.query);
-    res.json(orders);
+
+    const orders = await OrderService.getOrdersByUser(
+      userId,
+      req.query
+    );
+
+    res.status(200).json({
+      success: true,
+      data: orders,
+    });
   } catch (err) {
     next(err);
   }
