@@ -43,7 +43,6 @@ backend/
     ├── services/            # Business logic
     ├── repositories/        # Database operations
     ├── routes/              # Route definitions
-    ├── constants/           # Constants (if needed)
     ├── utils/               # Helper utilities
     ├── middleware/
     │     └── errorHandler.ts
