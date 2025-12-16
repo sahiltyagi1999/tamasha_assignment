@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import app from "./app";
 import { connectDB, closeDB } from "./config/db";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || "";
