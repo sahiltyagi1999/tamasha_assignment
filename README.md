@@ -22,7 +22,6 @@ The system uses a layered architecture (routes → controllers → services → 
 - Express.js
 - MongoDB
 - Mongoose
-- ts-node / ts-node-dev (for direct TS execution)
 - dotenv (environment variables)
 
 ## 3. Folder Structure Explanation
@@ -36,15 +35,15 @@ backend/
 │
 └── src/
     ├── app.ts               # Express app setup
-    ├── server.ts            # Server + DB initialization
+    ├── server.ts            # Server 
     │
     ├── models/              # Mongoose schemas
     ├── controllers/         # Request handlers
     ├── services/            # Business logic
     ├── repositories/        # Database operations
     ├── routes/              # Route definitions
-    ├── constants/           # Constants (if needed)
     ├── utils/               # Helper utilities
+    ├── config/              # DB initialization
     ├── middleware/
     │     └── errorHandler.ts
 ```
@@ -61,7 +60,7 @@ Create a `.env` file in the project root:
 
 ```
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/assignment2
+MONGO_URI=mongodb://localhost:27017/assignment2 #Add your mongoDb URL Here
 ```
 
 Install dependencies:
@@ -86,12 +85,6 @@ ts-node src/server.ts
 
 No build required.
 
-### If using ts-node-dev (auto reload):
-
-```bash
-npm install -D ts-node-dev
-npm run dev
-```
 
 ## 6. Sample Variables
 
@@ -112,13 +105,13 @@ You may adjust DB name as needed.
 - `category`: string
 - `basePrice`: number
 - `stock`: number
-- `sku`: string (unique)
+- `sku`: string 
 - `isDeleted`: boolean (soft delete)
 - `timestamps`: true
 
 ### Order Model
 
-- `userId`: string
+- `userId`: string  #In future when adding user Model it will be ObjId
 - `items`: array of objects
   - `product`: ObjectId (ref: Product)
   - `quantity`: number
