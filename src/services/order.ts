@@ -30,10 +30,10 @@ export const OrderService = {
         if (product.stock < item.quantity)
           throw new Error(`Insufficient stock for ${product.name}`);
 
-        // Dynamic pricing
+        // dynamic pricing
         let price = product.basePrice;
-        if (item.quantity >= 10) price *= 0.9;
-        if (product.category === "electronics") price *= 0.95;
+        if (item.quantity >= 10) price *= 0.9; // 10% discount
+        if (product.category === "electronics") price *= 0.95; // 5 % Discount
 
         const appliedPrice = price * item.quantity;
 

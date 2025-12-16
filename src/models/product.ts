@@ -15,7 +15,7 @@ const productSchema = new Schema<IProduct>(
     category: { type: String, required: true, trim: true },
     basePrice: { type: Number, required: true, min: 0 },
     stock: { type: Number, required: true, min: 0 },
-    sku: { type: String, required: true, unique: true, trim: true },
+    sku: { type: String, required: true, trim: true },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
